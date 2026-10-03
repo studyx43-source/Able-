@@ -49,20 +49,61 @@ class ManualMMPanel(discord.ui.View):
         await interaction.response.send_message("Manual Middleman request has been started.", ephemeral=True)
 
 POLICIES = {
-"rules": ("SERVER RULES", """1. Respect members and staff.
-2. No scams, impersonation, spam, unauthorized advertising, harassment, or malicious content.
-3. Do not fabricate receipts, transaction IDs, messages, delivery evidence, or payment evidence.
-4. Keep transactions inside official Olympus threads.
-5. Never share passwords, OTPs, private keys, seed phrases, or recovery credentials.
-6. Follow Discord rules and applicable platform/payment-provider rules."""),
+"rules": ("SERVER RULES", """1. CONDUCT
+Treat members and staff respectfully. Harassment, threats, targeted abuse, disruptive spam, malicious content, and attempts to deliberately interfere with transactions or support are prohibited.
+
+2. OFFICIAL TRANSACTIONS
+Use official Olympus panels and tickets for service-related transactions. Confirm the item, amount, price, participants, and delivery terms before proceeding. Do not impersonate Olympus staff, middlemen, or automated systems.
+
+3. HONEST EVIDENCE
+Information submitted during a transaction must be accurate. Fabricated or manipulated receipts, transaction IDs, chat evidence, delivery evidence, vouches, or payment claims are prohibited.
+
+4. ACCOUNT SECURITY
+Never post passwords, one-time codes, private keys, seed phrases, or recovery credentials. Staff should not request credentials that are unnecessary for the service.
+
+5. TICKET USE
+Keep relevant deal discussion and evidence in the official ticket. Do not create unnecessary duplicate tickets. Completed, abandoned, or abusive tickets may be closed after appropriate records are saved.
+
+6. PLATFORM RULES
+Users remain responsible for following Discord rules and the applicable rules of any game, marketplace, or payment provider involved in their transaction."""),
 "privacy": ("PRIVACY & LOGS", """Olympus may retain Discord user IDs, transaction IDs, timestamps, agreed deal terms, status changes, and evidence needed for transaction records or disputes.
 
 Sensitive credentials must never be submitted. Transaction information should only be retained for legitimate operation, record keeping, safety, and dispute handling."""),
-"tos": ("GENERAL TERMS", """Use accurate information and follow the exact terms confirmed inside the official transaction thread.
+"tos": ("TERMS OF SERVICE", """1. AGREEMENT
+Before proceeding, review the item or service, quantity, total price or exchange, participants, payment method, delivery method, and any additional conditions shown in the official Olympus ticket. Do not confirm information that is incorrect or incomplete.
 
-Fraud, impersonation, fabricated evidence, deceptive chargebacks, and attempts to manipulate transaction records are prohibited.
+2. OFFICIAL OLYMPUS WORKFLOW
+Transactions should use official Olympus panels and tickets. Verify that you are in the correct server and ticket and that the correct participants are present. Do not rely on unsolicited direct messages claiming to represent Olympus.
 
-Each Olympus service also has its own service-specific terms."""),
+3. PAYMENTS
+Verify the recipient, amount, currency, payment method, and wallet/network where applicable before sending. A screenshot or a user's statement that they paid does not by itself verify payment. Payment should be confirmed only through legitimate verification or an authorized process.
+
+4. DELIVERY & COMPLETION
+A transaction is completed only after the agreed item, service, payment, or exchange has actually been completed according to the confirmed deal. Payment being sent does not automatically mean the entire transaction is complete.
+
+5. REFUNDS & CANCELLATIONS
+Eligibility may depend on transaction stage, delivery status, payment method, and service-specific terms. Some transfers may be irreversible. A transaction should only be recorded as refunded after a genuine refund occurs.
+
+6. DISPUTES
+Keep relevant evidence inside the official ticket. Olympus may pause an active transaction while available records are reviewed. Fabricated or deliberately misleading evidence is prohibited.
+
+7. USER RESPONSIBILITY
+Check usernames, amounts, items, payment information, wallet addresses, networks, and other important details before confirming. Report incorrect information before proceeding.
+
+8. SECURITY
+Never provide passwords, one-time codes, private keys, seed phrases, or account recovery credentials. These are not required for normal Olympus transaction verification.
+
+9. FRAUD & FALSE INFORMATION
+Fake payment claims, fabricated transaction IDs, fake receipts, manipulated evidence, staff impersonation, false delivery claims, and attempts to manipulate Olympus transaction records are prohibited.
+
+10. SERVICE-SPECIFIC TERMS
+Robux Purchases, Blox Fruits Purchases, Auto Middleman, Manual Middleman, cryptocurrency payments, refunds, and disputes may each have additional terms relevant to their workflow.
+
+11. THIRD-PARTY SERVICES
+Third-party platforms and payment providers have their own rules, limitations, processing times, and policies. Users remain responsible for complying with the applicable rules of services they use.
+
+12. FINAL CONFIRMATION
+Before confirming a transaction, verify every participant, the item or service, amount, payment information, delivery terms, and applicable service-specific terms. Do not confirm until the transaction accurately represents the deal you intend to make."""),
 "payment-terms": ("PAYMENT TERMS", """Verify the recipient, amount, currency, network, and payment details before sending funds.
 
 A user's statement that payment was sent does not by itself verify payment. Olympus should mark a payment verified only after legitimate verification or authorized human confirmation.
@@ -104,7 +145,7 @@ class Slash(commands.Cog):
     async def policy(self, interaction, key):
         if not allowed(interaction): return await deny(interaction)
         title, text = POLICIES[key]
-        await interaction.response.send_message(embed=olympus_embed(title, text), ephemeral=True)
+        await interaction.response.send_message(embed=olympus_embed(title, text), ephemeral=False)
 
     @app_commands.command(name="help", description="View all Olympus commands")
     async def help(self, interaction: discord.Interaction):
