@@ -9,6 +9,8 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 
+ALLOWED_GUILD_ID = 1555485039154827274
+
 class OlympusBot(commands.Bot):
     async def setup_hook(self):
         extensions = (
@@ -25,6 +27,16 @@ class OlympusBot(commands.Bot):
             await self.load_extension(extension)
 
 bot = OlympusBot(command_prefix="$", intents=intents, help_command=None, case_insensitive=True)
+
+@bot.check
+async def guild_only(ctx):
+    return ctx.guild is not None and ctx.guild.id == ALLOWED_GUILD_ID
+
+@bot.event
+async def on_guild_join(guild):
+    if guild.id != ALLOWED_GUILD_ID:
+        await guild.leave()
+
 
 @bot.event
 async def on_ready():
